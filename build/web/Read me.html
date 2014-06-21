@@ -1,0 +1,33 @@
+AddLeagueFormServlet includes a single initialisation parameter called seasons-list with value "Spring,Summer,Autumn,Winter".
+This configuration object is passed to the servlet instance by way of the init method, which is sent by the web container.
+
+AddLeagueFormServlet can be used to create a form that is dynamically configured. It uses ServletConfig object
+to retrieve the seasons list.
+
+
+index.jsp > add_league.jsp > AddLeagueServlet > ErrorPageServlet or SuccessServlet
+    Here if error is produced while filling the form the errors are displayed in another page(,i.e, ErrorPageServlet).
+    AddLeagueServlet forwards to ErrorPageServlet using RequestDispatcher.
+    
+
+index.jsp > AddLeagueFormServlet > AddLeague2Servlet > AddLeagueFormServlet or SuccessServlet
+    Here if error is produced while filling the form the errors are displayed in same page as the form(,i.e, AddLeagueFormServlet).
+    AddLeagueServlet forwards back to AddLeagueFormServlet using RequestDispatcher if any error is encountered.
+    Here AddLeagueFormServlet is a dynamically configured form using params in web.xml
+    
+index.jsp > ListLeaguesServlet
+    Displays the list of leagues.
+    
+    
+Sharing Application Resources using ServletContext::
+        To create a shared list of leagues, the soccer application uses an attribute called leagueList.AddLeagueServlet and
+        ListLeaguesServlet use context object to gain access to the leagueList attribute.
+            The following tasks need to be performed to initialize the leaguelist context-scope attribute :
+        1> Determine location of leagues.txt file.
+        2> Read the leagues.txt file.
+        3> Create League object for each row in the leagues.txt file and store them in a List object.
+        4> Store the list of leagues in the leaguelist context attribute.
+        
+        The soccer application uses a context listener called InitializeLeagues. The InitializeLeagues listener implements the
+        contextInitialized method to read the list of leagues from a flat file, which is file resource in web application.
+        The leagues.txt file is stored in WEB-INF/data/leagues.txt.
