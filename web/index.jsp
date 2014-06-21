@@ -12,7 +12,7 @@
 </table>
 
 <p>
-This is the Home page for Duke's Soccer League.
+This is the Home page for Duke's Soccer League 2014
 </p>
 
 <h3>Players</h3>
